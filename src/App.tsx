@@ -3,6 +3,8 @@ import './App.css';
 import {Todolist} from "./Todolist";
 import {v1} from "uuid";
 import {AddItemForm} from "./AddItemForm";
+import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
+import {Menu} from "@mui/icons-material";
 
 
 export type TaskType = {
@@ -85,14 +87,38 @@ function App() {
 
     return (
         <div className="App">
-            <AddItemForm addNewForm={addNewTodolist} />
-            {todolists.map(tl => {
-                const filteredTasks: TaskType[] = tasks[tl.id].filter(t => tl.filterValue === 'Active'
-                    ? !t.isDone
-                    : tl.filterValue === 'Completed'
-                        ? t.isDone : t);
+            <AppBar position={'static'}>
+                <Toolbar>
+                    <IconButton
+                    size={'large'}
+                    edge={'start'}
+                    color={'inherit'}
+                    aria-label={'menu'}
+                    sx={{mt: 2}}
+                    >
+                        <Menu />
+                    </IconButton>
+                    <Typography variant={'h6'} component={'div'} sx={{flexGrow: 1}} >
+                        Todolists
+                    </Typography>
+                    <Button color={'inherit'}>Login</Button>
+                </Toolbar>
+            </AppBar>
+            <Container fixed>
+                <Grid sx={{p: '10px 0'}} container>
+                    <AddItemForm addNewForm={addNewTodolist} />
+                </Grid>
+                <Grid container spacing={4}>
+                    {todolists.map(tl => {
+                    const filteredTasks: TaskType[] = tasks[tl.id].filter(t => tl.filterValue === 'Active'
+                           ? !t.isDone
+                          : tl.filterValue === 'Completed'
+                              ? t.isDone : t);
 
-                return <Todolist key={tl.id}
+                     return (
+                         <Grid item>
+                            <Paper variant={'outlined'} sx={{p: '20px'}}>
+                                <Todolist key={tl.id}
                                            tListId={tl.id}
                                            title={tl.title}
                                            tasks={filteredTasks}
@@ -104,8 +130,13 @@ function App() {
                                            removeTodolist={removeTodolist}
                                            changeTodolistTitle={changeTodolistTitle}
                                            changeTaskTitle={changeTaskTitle}
-                />
-            })}
+                                />
+                            </Paper>
+                         </Grid>
+                     )
+                    })}
+                </Grid>
+            </Container>
         </div>
     );
 }

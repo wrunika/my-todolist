@@ -1,7 +1,9 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import {IconButton, TextField} from "@mui/material";
+import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 
 export type AddItemFormPropsType = {
-    addNewForm: (newTitle: string)=>void
+    addNewForm: (newTitle: string) => void
 }
 export const AddItemForm = (props: AddItemFormPropsType) => {
     const [newTitle, setNewTitle] = useState('');
@@ -20,11 +22,25 @@ export const AddItemForm = (props: AddItemFormPropsType) => {
         e.key === 'Enter' && addNewFormHandler();
     }
 
-  return(
-      <div>
-          <input className={error ? 'error' : ''} value={newTitle} onChange={getInputValue} onKeyDown={onKeyDownHandler} />
-          <button onClick={addNewFormHandler}>+</button>
-          {error && <p className={'errorMessage'}>{errorMessage}</p>}
-      </div>
-  )
+    return (
+        <>
+            <div className={'addItemForm'}>
+                <TextField
+                    variant={'outlined'}
+                    size={'small'}
+                    value={newTitle}
+                    onChange={getInputValue}
+                    onKeyDown={onKeyDownHandler}
+                    label={'Enter title'}
+                    error={error}
+                    helperText={error && errorMessage}
+                />
+                <div>
+                    <IconButton onClick={addNewFormHandler} color={'secondary'} size={'small'}>
+                        <LibraryAddIcon/>
+                    </IconButton>
+                </div>
+            </div>
+        </>
+    )
 }
