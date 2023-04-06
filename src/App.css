@@ -27,7 +27,7 @@
 .tlTitle {
     display: inline-block;
     font-size: 30px;
-    margin-bottom: 0;
+    margin-bottom: 5px;
 }
 
 .addItemForm {

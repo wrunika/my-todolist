@@ -3,8 +3,8 @@ import {v1} from "uuid";
 
 type ActionsType = RemoveTodolistACType | AddTodolistACType | ChangeTodolistTitleACType | ChangeTodolistFilterACType;
 
-type RemoveTodolistACType = ReturnType<typeof removeTodolistAC>
-type AddTodolistACType = ReturnType<typeof addTodolistAC>
+export type RemoveTodolistACType = ReturnType<typeof removeTodolistAC>
+export type AddTodolistACType = ReturnType<typeof addTodolistAC>
 type ChangeTodolistTitleACType = ReturnType<typeof changeTodolistTitleAC>
 type ChangeTodolistFilterACType = ReturnType<typeof changeTodolistFilterAC>
 
@@ -13,7 +13,7 @@ export const todolistsReducer = (state: Array<TodolistType>, action: ActionsType
         case 'REMOVE-TODOLIST':
             return state.filter(tl=> tl.id !== action.id);
         case 'ADD-TODOLIST':
-            return [...state, {id: v1(), title: action.title, filterValue: 'All'}];
+            return [...state, {id: action.newTodolistID, title: action.title, filterValue: 'All'}];
         case 'CHANGE-TODOLIST-TITLE':
             return state.map(tl=> tl.id === action.id ? {...tl, title: action.title} : tl);
         case 'CHANGE-TODOLIST-FILTER':
@@ -30,9 +30,11 @@ export const removeTodolistAC = (id: string) => {
   } as const
 }
 export const addTodolistAC = (title: string) => {
+    const newTodolistID = v1();
     return {
         type: 'ADD-TODOLIST',
-        title
+        title,
+        newTodolistID
     } as const
 }
 export const changeTodolistTitleAC = (id: string, title: string) => {
