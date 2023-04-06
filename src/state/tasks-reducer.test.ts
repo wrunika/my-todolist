@@ -39,8 +39,8 @@ test('correct task should be added', () => {
 
     expect(endState[todolistID2].length).toBe(4);
     expect(endState[todolistID1].length).toBe(5);
-    expect(endState[todolistID1][4].title).toBe('Water');
-    expect(endState[todolistID1][4].isDone).toBe(false);
+    expect(endState[todolistID1][0].title).toBe('Water');
+    expect(endState[todolistID1][0].isDone).toBe(false);
 })
 
 test('correct task status should be changed', () => {
