@@ -75,7 +75,7 @@ test('new array should be added when new todolist is added', () => {
     const action = addTodolistAC('new todolist');
     const endState = tasksReducer(startTasks, action);
     const keys = Object.keys(endState)
-    const newKey: string = keys.find(k => k != todolistID1 && k != todolistID2) || '';
+    const newKey: string = keys.find(k => k !== todolistID1 && k !== todolistID2) || '';
 
     expect(keys.length).toBe(3);
     expect(endState[newKey]).toEqual([]);

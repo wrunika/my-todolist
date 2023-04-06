@@ -1,5 +1,6 @@
 import {TasksStateType} from "../App";
 import {AddTodolistACType, RemoveTodolistACType} from "./todolists-reducer";
+import {v1} from "uuid";
 
 
 type RemoveTaskACType = ReturnType<typeof removeTaskAC>
@@ -14,7 +15,7 @@ export const tasksReducer = (state: TasksStateType, action: ActionsType): TasksS
       case "REMOVE-TASK":
           return {...state, [action.tListId]: state[action.tListId].filter(t => t.id !== action.taskId)};
       case "ADD-TASK":
-          const newTask = {id: '5', title: action.title, isDone: false};
+          const newTask = {id: v1(), title: action.title, isDone: false};
           return {...state, [action.tListId]: [...state[action.tListId], newTask]};
       case "CHANGE-TASK-STATUS":
           return {...state, [action.tListId]: state[action.tListId].map(t=> t.id===action.taskId ? {...t, isDone: action.isDone} : t)};
@@ -25,6 +26,7 @@ export const tasksReducer = (state: TasksStateType, action: ActionsType): TasksS
           delete newState[action.id];
           return newState;
       case "ADD-TODOLIST":
+          debugger
           return {...state, [action.newTodolistID]: []};
       default:
           return state;
