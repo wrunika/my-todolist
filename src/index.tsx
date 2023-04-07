@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+//import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {blue, deepPurple} from "@mui/material/colors";
 import {CssBaseline} from "@mui/material";
-import AppWithReducers from "./AppWithReducers";
+//import AppWithReducers from "./AppWithReducers";
+import {Provider} from "react-redux";
+import {store} from "./state/store";
+import AppWithRedux from "./AppWithRedux";
 
 const theme = createTheme({
     palette: {
@@ -23,7 +26,10 @@ root.render(
   <ThemeProvider theme={theme}>
       <CssBaseline />
     {/*<App />*/}
-    <AppWithReducers />
+    {/*<AppWithReducers />*/}
+      <Provider store={store} >
+          <AppWithRedux />
+      </Provider>
   </ThemeProvider>
 );
 
